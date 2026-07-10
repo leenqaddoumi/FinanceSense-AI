@@ -99,7 +99,7 @@ Time-Series Analysis: Statsmodels (SARIMAX state-space framework)
 Clone the Repository
 
 
-git clone https://github.com/yourusername/FinanceSense-AI.git
+git clone https://github.com/leenqaddoumi/FinanceSense-AI.git
 cd FinanceSense-AI
 
 Install Required Packages
