@@ -1,135 +1,120 @@
-💰 FinanceSense AI
+📊 Personal Finance AI Dashboard
 
-Managing personal finances often requires manually tracking and analyzing transaction histories, which can be time-consuming and prone to oversight. **FinanceSense AI** addresses this challenge by applying unsupervised machine learning, advanced feature engineering, and statistical time-series forecasting to automatically uncover spending patterns, predict future budget liabilities, and flag outlier transactions through an interactive visualization web dashboard.
+📌 GitHub Repository Details
 
---- 📌 Overview
+Repository Description: AI-powered personal finance dashboard using machine learning for spending analysis, forecasting, anomaly detection, and interactive visualization.
 
-FinanceSense AI is an end-to-end personal finance intelligence platform built with Python and Streamlit.
+Topics/Tags: python, machine-learning, streamlit, finance, pandas, scikit-learn, data-science, forecasting, plotly, isolation-forest, kmeans, sarima
 
-The application enables users to upload custom transaction logs, processes data through an automated data engineering pipeline, identifies behavioral spending profiles, builds baseline-evaluated expense forecasts, and instantly isolates anomalies using an ensemble tree framework.
+📌 Overview
 
-This project is built to demonstrate a complete data science software deployment—transforming raw, tabular ledger data into high-value natural-language insights.
+This is an interactive financial intelligence dashboard that helps users track, understand, and predict their personal expenses. Instead of manual categorization, the platform uses machine learning to automatically cluster spending habits, flag unusual transactions (anomalies), and forecast future monthly expenses.
 
---- ✨ Features- 📁 
-**Data Input Portal**: Drag-and-drop file uploader accepting user-supplied transaction datasets.
-- 🧹 **Defensive Data Cleaning**: Automated handling of missing structures and duplicate ledger removal.
-- ⚙️ **Advanced Feature Engineering**: Dynamic generation of temporal markers, transaction time deltas, and month-over-month ratio features.
-- 🤖 **Behavioral Profile Clustering**: Groups monthly expenditure patterns using K-Means, using Silhouette Score width sweeps to pick the optimal number of clusters.
-- 🔮 **Predictive Forecast Horizons**: Generates multi-month outbound expense projections using seasonal SARIMA models backed by 95% confidence intervals.
-- 🌲 **Unsupervised Anomaly Tracking**: Pinpoints irregular or potentially hazardous spending surges via an Isolation Forest framework.
-- 📝 **Dynamic Financial Insights**: Evaluates data velocities to surface custom natural-language trend updates and personalized budget cap recommendations.
+Live Demo: [Insert Deployed App Link Here]
 
----## 🏗️ Project Architecture
+Tech Stack: Python, Streamlit, Pandas, Scikit-Learn, Statsmodels, Plotly
 
-To facilitate seamless local installation, swift visualization adjustments, and rapid prototyping, the entire engineering pipeline is contained within a clean, production-ready standalone repository layout:
+✨ Features
 
-FinanceSense-AI/
-│
-├── app.py # Core UI, Pipeline Orchestration, & ML Engines
-├── requirements.txt # Operational dependency requirements
-└── data/
-└── Sample_Dataset.csv # Baseline sandbox fallback dataset
+Spending Pattern Clustering: Groups transaction histories into behavioral profiles using K-Means clustering.
 
-🔄 Machine Learning Pipeline
-Plaintext
+Expense Forecasting: Uses SARIMA modeling to forecast monthly expenses with a 95% confidence interval.
 
-Upload CSV Dataset
-        │
-        ▼
-Data Preprocessing (Deduplication & Numeric Sign Normalization)
-        │
-        ▼
-Feature Engineering (Temporal Extraction & Transaction Deltas)
-        │
-        ▼
-Behavioral Clustering (K-Means Optimized via Silhouette Score)
-        │
-        ▼
-Expense Forecasting (SARIMA with 95% Confidence Intervals)
-        │
-        ▼
-Anomaly Detection (Isolation Forest Outlier Exception Logging)
-        │
-        ▼
-Synthesized Insights (Automated Natural-Language Alerts)
-        │
-        ▼
-Interactive UI Dashboard (Streamlit Frontend Execution)
+Anomaly Detection: Employs Isolation Forests to instantly flag unusual transaction spikes or double-charges.
 
-🧹 Data Preprocessing & Feature Engineering
-The underlying data engine ingests raw inputs and automatically structures features to supply the downstream machine learning models:
+Interactive Visualization: Dynamic multi-axis charts built with Plotly to drill down into monthly category limits.
 
-Structural Integrity: Drops entries lacking critical currency values and fills empty descriptors securely.
-Deduplication Check: Automatically isolates and purges identical transaction records to protect model variances.
-Temporal Indicators: Extracts Year, Month, Quarter, WeekOfYear, and Is_Weekend binary flags.
-Continuous Metrics: Tracks DaysSincePreviousTransaction and compiles a chronological running account balance vector.
+🏗️ System Architecture
+
+┌────────────────┐      ┌─────────────────┐      ┌───────────────────────────┐
+│  CSV / Bank    │ ───> │  Data Cleaning  │ ───> │ Feature Engineering       │
+│  Statement     │      │  & Imputation   │      │ (Temporal & Categorical)  │
+└────────────────┘      └─────────────────┘      └───────────────────────────┘
+                                                               │
+                                                               ▼
+┌────────────────┐      ┌─────────────────┐      ┌───────────────────────────┐
+│ Interactive    │ <─── │ Streamlit       │ <─── │ ML Models                 │
+│ Plotly Graphs  │      │ Frontend App    │      │ (K-Means, SARIMA, IF)     │
+└────────────────┘      └─────────────────┘      └───────────────────────────┘
+
+
+⚙️ Data Pipeline
+
+[Raw CSV] 
+   │
+   ▼
+[Data Cleaning] ────> Fills missing categories, parses dates, normalizes transaction amounts.
+   │
+   ▼
+[Feature Extraction] ────> Extracts Day of Week, Day of Month, and rolling 30-day averages.
+   │
+   ├─> [Clustering Pipeline] ───> Fits K-Means to categorize spending behaviors.
+   ├─> [Anomaly Pipeline] ────> Fits Isolation Forest to isolate extreme transaction values.
+   └─> [Forecasting Pipeline] ──> Fits SARIMA on aggregate historical monthly sequences.
+
 
 🤖 Machine Learning Models
-Automated K-Means Clustering
-Segments monthly transactional activities into unique financial archetypes. Rather than manually assigning a static number of groupings, the system computes Silhouette Coefficients across a range of values (K∈[2,5]) at runtime to choose the mathematically optimal cluster size for your specific spending distribution.
 
-SARIMA Forecasting with 95% Confidence Intervals
-Projects baseline expense patterns over a future horizon. To guarantee performance, the model fits a seasonal state-space autoregressive tracker (SARIMAX) using derivative-free optimization routines and charts an orange median prediction path complete with faded 95% confidence boundaries. The script logs a 3-month Moving Average baseline for performance context.
+1. Spending Pattern Clustering (K-Means)
 
-Isolation Forest Outlier Log
-Isolates anomalous, high-risk financial spikes. By training an unsupervised ensemble of isolation trees on transaction amounts and transaction velocities, the application strips out and tables the top 3% most statistically abnormal transaction rows for immediate user audit.
+Objective: Group transactions automatically to isolate core spending behaviors.
 
-📊 Dashboard Elements
-The interactive interface translates multi-layered mathematical metrics into a scannable user layout:
+Features Used: Transaction amount, category frequency, time-of-day, and merchant type.
 
-Inflow/Outflow Scorecards: Real-time evaluation of total income, aggregate expenses, and net savings.
-Dynamic Liquidity Timelines: Interactive Plotly line charts displaying running cash balances over selectable year profiles.
-Categorical Allocation Distributions: Proportional breakdown charts profiling budget use across transaction types.
-Tabular Exception Log: Visual warning panels containing flagged Isolation Forest transaction outliers.
+Evaluation: Optimized cluster count (K) using the Silhouette Score and the Elbow Method.
 
-⚠️ Known Limitations
-Historical Volume Dependencies: The accuracy of the seasonal SARIMA forecasting module is highly dependent on having a multi-year historical timeline; short or highly random sequences will cause the engine to degrade to moving average baselines.
-Schema Constraints: The input system assumes user uploads adhere to standard categorical column naming conventions (Date, Transaction Description, Category, Amount, Type).
-Rule-Based Category Mapping: Initial transaction classification profiles rely on underlying string matching rule matrices that may require expansion depending on user-specific merchant variations.
+2. Expense Forecasting (SARIMA)
 
-🛠️ Technologies Used
-Language Runtime: Python
-Interface & Server: Streamlit
-Data Engineering: Pandas, NumPy
-Visualizations: Plotly Express, Plotly Graph Objects
-Machine Learning: Scikit-Learn (KMeans, StandardScaler, IsolationForest, silhouette_score)
-Time-Series Analysis: Statsmodels (SARIMAX state-space framework)
+Objective: Forecast future monthly expenses based on historical trends and seasonality.
 
-🚀 Installation & Setup
-Clone the Repository
+Configuration: SARIMA(p,d,q)(P,D,Q)s model fitted on historical monthly spending aggregates.
+
+Visual Representation: Displays a rolling timeline with a shaded 95% confidence boundary.
+
+3. Anomaly Detection (Isolation Forest)
+
+Objective: Identify potential billing errors, fraud, or unexpected spending spikes.
+
+Method: Evaluates multidimensional transaction features to flag instances with high outlier scores.
+
+📊 Interactive Dashboard
+
+The Streamlit frontend allows non-technical users to interact with their financial models:
+
+Upload Area: Upload monthly bank statements in standard CSV format.
+
+What-If Forecasts: Adjust budget goals to see how actual and forecasted spending patterns align.
+
+Drill-Down Panels: Filter flagged transaction anomalies by date, merchant, or severity.
+
+⚠️ Limitations & Assumptions
+
+Data History: The SARIMA model requires at least 12–18 months of historical records to reliably model monthly seasonality.
+
+Category Tagging: Transaction descriptions must contain recognizable keywords for optimal vector representation prior to clustering.
+
+🚀 Quick Start & Installation
+
+1. Clone the repository
+
+git clone https://github.com/leenqaddoumi/finance-ai-dashboard.git
+cd finance-ai-dashboard
 
 
-git clone https://github.com/leenqaddoumi/FinanceSense-AI.git
-cd FinanceSense-AI
+2. Set up virtual environment & install packages
 
-Install Required Packages
-
-
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 
-Launch the Web Application
 
+3. Run the application locally
 
 streamlit run app.py
 
-📸 Screenshots
 
-### Operational Analytics Dashboard
-![Dashboard Home](screenshots/dashboard_home.png)
+🔮 Future Enhancements
 
-### Spending Explorations
-![Spending Trends](screenshots/spending_trends.png)
+Multi-Account Aggregation: Connect to live banking APIs using secure ledger connectors.
 
-### Machine Learning Profile Groupings & SARIMA Horizon Projections
-![Machine Learning Models](screenshots/forecast_and_clusters.png)
-
-### Isolation Forest Outlier Exceptions & Automated Insights
-![Anomalies and Insights](screenshots/anomaly_and_insights.png)
-
-🔮 Future Improvements
-Automated multi-currency processing for international accounts.
-Dynamic categorization using localized LLM classification pipelines.
-Predictive budget recommendation engines that optimize savings dynamically.
-
-👤 Author
-Leen Qaddoumi Data Science & Artificial Intelligence Student Al Hussein Technical University
+Auto-Labeling Pipeline: Fine-tune a lightweight BERT classifier for semantic merchant-to-category mapping.
